@@ -2,11 +2,11 @@ footer {
   background-color: #f8d7a1;
   text-align: center;
   padding: 20px;
-  font-size: 1em;
+  font-size: 0.9em;
   color: #333;
   width: 100%;
   box-sizing: border-box;
-  margin-top: auto; /* Para empujarlo al fondo */
+  margin-top: auto; /* Truco mágico para empujarlo al fondo */
 }
 
 p {

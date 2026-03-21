@@ -15,7 +15,6 @@
     border-radius: 5px;
     border: 1px solid #ccc;
     font-family: inherit;
-    font-size: 1.2em;
     min-width: 200px;
 }
 
@@ -63,7 +62,7 @@
 }
 
 .categoria {
-    font-size: 1em;
+    font-size: 0.9em;
     font-weight: 500;
     color: #8d451e !important;
 }
