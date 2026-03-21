@@ -1,0 +1,29 @@
+<main class="form-container">
+  <section class="registro"> <h2>Crear cuenta</h2>
+    
+    @if (passwordsNoCoinciden()) {
+      <p style="color: red; font-size: 0.9em; margin-top: 0;">Las contraseñas no coinciden.</p>
+    }
+
+    <form [formGroup]="registroForm" (ngSubmit)="registrar()">
+      <label for="nombre">Nombre completo:</label>
+      <input type="text" id="nombre" formControlName="nombre">
+      @if (registroForm.get('nombre')?.invalid && registroForm.get('nombre')?.touched) {
+        <small class="error-text">El nombre es obligatorio.</small>
+      }
+
+      <label for="email">Correo electrónico:</label>
+      <input type="email" id="email" formControlName="email">
+      
+      <label for="password">Contraseña (Mínimo 6 caracteres):</label>
+      <input type="password" id="password" formControlName="password">
+
+      <label for="confirmar">Confirmar contraseña:</label>
+      <input type="password" id="confirmar" formControlName="confirmar">
+
+      <button type="submit">Registrarme</button>
+    </form>
+
+    <p>¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión aquí</a></p>
+  </section>
+</main>

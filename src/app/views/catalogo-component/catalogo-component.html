@@ -1,0 +1,32 @@
+<section class="filtros">
+    <input 
+        type="text" 
+        placeholder="Buscar recetas..." 
+        [ngModel]="busqueda()" 
+        (ngModelChange)="busqueda.set($event)">
+        
+    <select [ngModel]="categoriaSeleccionada()" (ngModelChange)="categoriaSeleccionada.set($event)">
+        <option value="">Todas las categorías</option>
+        <option value="postres">Postres</option>
+        <option value="bebidas">Bebidas</option>
+        <option value="platos-principales">Platos principales</option>
+        <option value="entradas">Entradas</option>
+    </select>
+</section>
+
+<section class="catalogo">
+    @for (receta of recetasFiltradas(); track receta.id) {
+        <article class="card" [routerLink]="['/detalle', receta.id]">
+            <img [src]="receta.imagen" [alt]="receta.titulo">
+            <div class="info">
+                <h3>{{ receta.titulo }}</h3>
+                <p>{{ receta.descripcion }}</p>
+                <p class="categoria">Categoría: {{ receta.categoria | titlecase }}</p>
+            </div>
+        </article>
+    } @empty {
+        <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+            <p>No se encontraron recetas con esos filtros. 😢</p>
+        </div>
+    }
+</section>

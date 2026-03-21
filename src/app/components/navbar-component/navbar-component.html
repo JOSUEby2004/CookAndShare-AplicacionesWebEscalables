@@ -1,0 +1,14 @@
+<header>
+  <div class="logo">
+    🍴 <a routerLink="/">Cook&Share</a>
+  </div>
+  
+  <button class="menu-toggle" (click)="toggleMenu()">☰</button>
+
+  <nav class="nav" [class.activo]="isMenuOpen()">
+    <a routerLink="/" routerLinkActive="activo" [routerLinkActiveOptions]="{exact: true}">Inicio</a>
+    <a routerLink="/catalogo" routerLinkActive="activo">Recetas</a>
+    <a routerLink="/login" routerLinkActive="activo">Iniciar sesión</a>
+    <a routerLink="/registro" routerLinkActive="activo">Registrarse</a>
+  </nav>
+</header>

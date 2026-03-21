@@ -1,0 +1,80 @@
+/* ==== FILTROS ==== */
+.filtros {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    background-color: #fef3dc;
+    flex-wrap: wrap;
+}
+
+.filtros input,
+.filtros select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: inherit;
+    font-size: 1.2em;
+    min-width: 200px;
+}
+
+/* ==== CATÁLOGO ==== */
+.catalogo {
+    display: grid;
+    gap: 20px;
+    padding: 30px;
+}
+
+/* Tarjetas */
+.card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.card .info {
+    padding: 15px;
+}
+
+.card h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #b55b28;
+}
+
+.card p {
+    margin: 0 0 10px 0;
+    color: #555;
+}
+
+.categoria {
+    font-size: 1em;
+    font-weight: 500;
+    color: #8d451e !important;
+}
+
+/* ==== RESPONSIVIDAD ==== */
+@media (max-width: 600px) {
+    .catalogo { grid-template-columns: 1fr; }
+}
+@media (min-width: 601px) and (max-width: 1199px) {
+    .catalogo { grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 1200px) {
+    .catalogo { grid-template-columns: 1fr 1fr 1fr; }
+}
