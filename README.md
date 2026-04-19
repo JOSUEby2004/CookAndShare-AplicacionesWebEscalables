@@ -2,7 +2,7 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.0.
 
-You can try the first static version of the page here: https://cookandshare-josue.netlify.app/
+You can try a static version of the page here: https://cookandshare-josue.netlify.app/
 
 ## Development server
 
