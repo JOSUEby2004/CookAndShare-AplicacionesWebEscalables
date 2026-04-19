@@ -1,0 +1,5 @@
+PORT=
+# URL de conexión por defecto de MongoDB local
+MONGO_URI=
+# Esta clave la usaremos más adelante para firmar las sesiones (JWT)
+JWT_SECRET=

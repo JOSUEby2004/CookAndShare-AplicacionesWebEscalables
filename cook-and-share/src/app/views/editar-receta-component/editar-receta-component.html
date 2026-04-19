@@ -1,0 +1,47 @@
+<div class="form-container">
+    <h2>Editar receta</h2>
+
+    <form [formGroup]="recipeForm" (ngSubmit)="guardarCambios()">
+        <label>Título:</label>
+        <input formControlName="titulo" placeholder="Ej. Tacos al pastor">
+
+        <label>Descripción:</label>
+        <textarea formControlName="descripcion"></textarea>
+
+        <label>Categoría:</label>
+        <select formControlName="categoria">
+            <option value="postres">Postres</option>
+            <option value="bebidas">Bebidas</option>
+            <option value="platos-principales">Platos principales</option>
+            <option value="entradas">Entradas</option>
+        </select>
+
+        <label>URL de la imagen (Opcional):</label>
+        <input type="url" formControlName="imagen" placeholder="https://ejemplo.com/foto-tacos.jpg">
+
+        <h3>Ingredientes</h3>
+        <div formArrayName="ingredientes">
+            @for (ing of ingredientes.controls; track $index) {
+            <div class="input-con-boton">
+                <input [formControlName]="$index" placeholder="Ingrediente">
+                <button type="button" class="btn-quitar" (click)="eliminarIngrediente($index)">✖</button>
+            </div>
+            }
+            <button type="button" (click)="agregarIngrediente()">+ Añadir ingrediente</button>
+        </div>
+
+        <h3>Pasos de preparación</h3>
+        <div formArrayName="pasos">
+            @for (paso of pasos.controls; track $index) {
+            <div [formGroupName]="$index" class="paso-row">
+                <span>{{$index + 1}}.</span>
+                <input formControlName="instruccion" placeholder="Instrucción">
+                <button type="button" class="btn-quitar" (click)="eliminarPaso($index)">✖</button>
+            </div>
+            }
+            <button type="button" (click)="agregarPaso()">+ Añadir paso</button>
+        </div>
+
+        <button type="submit" class="btn-submit" [disabled]="recipeForm.invalid">Publicar Receta</button>
+    </form>
+</div>

@@ -1,0 +1,91 @@
+<div class="admin-container">
+  <header class="admin-header">
+    <h2>🛡️ Panel de Administración</h2>
+    <p>Centro de control de Cook&Share</p>
+  </header>
+
+  <div class="admin-tabs">
+    <button [class.activo]="vistaActual() === 'usuarios'" (click)="cambiarVista('usuarios')">
+      👥 Usuarios ({{ usuarios().length }})
+    </button>
+    <button [class.activo]="vistaActual() === 'recetas'" (click)="cambiarVista('recetas')">
+      🌮 Recetas ({{ recetas().length }})
+    </button>
+  </div>
+
+  <main class="admin-content">
+
+    @if (vistaActual() === 'usuarios') {
+    <div class="tabla-responsive">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Avatar</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Registro</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (user of usuarios(); track user._id) {
+          <tr>
+            <td><img [src]="user.foto_perfil || '/img/default_user.png'" class="avatar-mini"></td>
+            <td><strong>{{ user.nombre }}</strong></td>
+            <td>{{ user.email }}</td>
+            <td>
+              <span class="badge" [class.badge-admin]="user.rol === 'admin'">
+                {{ user.rol }}
+              </span>
+            </td>
+            <td>{{ user.createdAt | date:'shortDate' }}</td>
+            <td>
+              <button class="btn-peligro" [disabled]="user.rol === 'admin'" (click)="borrarUsuario(user._id)">
+                🗑️ Eliminar
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    }
+
+    @if (vistaActual() === 'recetas') {
+    <div class="tabla-responsive">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Receta</th>
+            <th>Autor</th>
+            <th>Categoría</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (receta of recetas(); track receta._id) {
+          <tr>
+            <td><strong>{{ receta.titulo }}</strong></td>
+            <td>{{ receta.autor?.nombre || 'Usuario Desconocido' }}</td>
+            <td class="categoria-texto">{{ receta.categoria }}</td>
+            <td>{{ receta.createdAt | date:'shortDate' }}</td>
+            <td>
+              @if (receta.estado !== 'aprobada') {
+              <button class="btn-aprobar" (click)="cambiarEstadoReceta(receta._id, 'aprobada')">✅ Aprobar</button>
+              }
+
+              @if (receta.estado !== 'rechazada') {
+              <button class="btn-rechazar" (click)="cambiarEstadoReceta(receta._id, 'rechazada')">❌ Rechazar</button>
+              }
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    }
+
+  </main>
+</div>

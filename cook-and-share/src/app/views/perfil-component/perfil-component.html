@@ -1,0 +1,63 @@
+<div class="perfil-container">
+
+    @if (usuario()) {
+    <header class="header-perfil">
+
+        @if (!editando()) {
+        <img [src]="usuario().foto_perfil || '/img/default_user.png'" alt="Foto de perfil" class="foto-perfil">
+        <div class="info-usuario">
+            <h2>{{ usuario().nombre }}</h2>
+            <p class="email">{{ usuario().email }}</p>
+            <p class="rol">Rol: {{ usuario().rol }}</p>
+        </div>
+        <div class="botones-header">
+            <button class="btn-editar-perfil" (click)="activarEdicion()">✏️ Editar Perfil</button>
+            <button class="btn-logout" (click)="cerrarSesion()">Cerrar sesión</button>
+        </div>
+        }
+
+        @if (editando()) {
+        <div class="formulario-edicion">
+            <h3>Editar Perfil</h3>
+            <label>Nombre:</label>
+            <input type="text" [ngModel]="editNombre()" (ngModelChange)="editNombre.set($event)">
+
+            <label>URL de Foto de Perfil:</label>
+            <input type="url" [ngModel]="editFoto()" (ngModelChange)="editFoto.set($event)"
+                placeholder="https://ejemplo.com/mifoto.jpg">
+
+            <div class="botones-edicion">
+                <button class="btn-guardar" (click)="guardarPerfil()">Guardar Cambios</button>
+                <button class="btn-cancelar" (click)="cancelarEdicion()">Cancelar</button>
+            </div>
+        </div>
+        }
+    </header>
+    }
+
+    <section class="mis-recetas">
+        <h3>Mis Recetas Publicadas</h3>
+
+        <div class="grid-recetas">
+            @for (receta of misRecetas(); track receta._id) {
+            <article class="card">
+                <img [src]="receta.imagen" [alt]="receta.titulo">
+                <div class="card-content">
+                    <h4>{{ receta.titulo }}</h4>
+                    <p class="estado" [class]="receta.estado">{{ receta.estado }}</p>
+                    <div class="acciones">
+                        <button class="btn-editar" [routerLink]="['/editar-receta', receta._id]">✏️ Editar</button>
+                        <button class="btn-eliminar" (click)="borrarReceta(receta._id)">🗑️ Borrar</button>
+                    </div>
+                </div>
+            </article>
+            } @empty {
+            <div class="empty-state">
+                <p>Aún no has publicado ninguna receta.</p>
+                <a routerLink="/crear-receta" class="btn-publicar">¡Publica tu primera receta!</a>
+            </div>
+            }
+        </div>
+    </section>
+
+</div>

@@ -7,9 +7,13 @@
 /bazel-out
 
 # Node
-/node_modules
+/cook-and-share/node_modules
+/cook-and-share-backend/node_modules
 npm-debug.log
 yarn-error.log
+
+# Environment
+/cook-and-share-backend/.env
 
 # IDEs and editors
 .idea/

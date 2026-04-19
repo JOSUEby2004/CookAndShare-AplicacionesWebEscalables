@@ -1,0 +1,60 @@
+@if (receta()) {
+<main class="receta-detalle">
+    <div class="imagen-receta">
+        <img [src]="receta().imagen" [alt]="receta().titulo">
+    </div>
+
+    <div class="info-receta">
+        <h1>{{ receta().titulo }}</h1>
+        <p class="autor">Por <strong>{{ '@' + receta().autor.nombre }}</strong></p>
+        <p class="categoria">Categoría: {{ receta().categoria | titlecase }}</p>
+
+        <h2>Ingredientes</h2>
+        <ul>
+            @for (ing of receta().ingredientes; track $index) {
+            <li>{{ ing }}</li>
+            }
+        </ul>
+
+        <h2>Preparación</h2>
+        <ul>
+            @for (paso of receta().pasos; track $index) {
+            <li>
+                <strong>Paso {{ paso.orden }}:</strong> {{ paso.instruccion }}
+            </li>
+            }
+        </ul>
+
+        <button class="volver" routerLink="/catalogo">← Volver al catálogo</button>
+    </div>
+</main>
+
+<section class="comentarios-section">
+    <h3>Comentarios ({{ comentarios().length }})</h3>
+
+    <div class="nuevo-comentario">
+        <textarea [(ngModel)]="nuevoComentarioTexto" placeholder="¿Qué te pareció la receta?"></textarea>
+        <button (click)="enviarComentario()" [disabled]="!nuevoComentarioTexto()">Publicar</button>
+    </div>
+
+    <div class="lista-comentarios">
+        @for (com of comentarios(); track com._id) {
+        <div class="comentario">
+            <div class="com-header">
+                <strong>{{ com.autor.nombre }}</strong>
+                <span>{{ com.createdAt | date:'short' }}</span>
+            </div>
+            <p>{{ com.texto }}</p>
+        </div>
+        } @empty {
+        <p>Sé el primero en comentar esta receta.</p>
+        }
+    </div>
+</section>
+} @else {
+<div style="text-align: center; padding: 100px 20px;">
+    <h2 style="color: #d9534f;">Receta no encontrada 😢</h2>
+    <p>Parece que la receta que buscas fue eliminada o no existe.</p>
+    <button class="volver" routerLink="/catalogo" style="margin-top: 20px;">← Explorar otras recetas</button>
+</div>
+}

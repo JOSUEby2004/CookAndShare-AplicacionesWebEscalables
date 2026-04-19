@@ -1,0 +1,148 @@
+/* Contenedor principal */
+.form-container {
+    background-color: #fff;
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    margin: 40px auto;
+    box-sizing: border-box;
+}
+
+h2 {
+    color: #b55b28;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 0;
+}
+
+/* Subtítulos para Ingredientes y Pasos */
+h3 {
+    color: #8d451e;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #f8d7a1;
+    padding-bottom: 5px;
+}
+
+label {
+    display: block;
+    margin: 15px 0 5px;
+    font-weight: 500;
+    color: #333;
+}
+
+/* Estilos generales para los campos de texto */
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+    /* Permite al usuario hacer más grande el cuadro solo hacia abajo */
+    min-height: 80px;
+}
+
+select {
+    background-color: white;
+    cursor: pointer;
+}
+
+/* ==== Estilos para listas dinámicas (FormArray) ==== */
+
+/* Fila de los pasos (Número + Input) */
+.input-con-boton,
+.paso-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.paso-row span {
+    font-weight: bold;
+    color: #b55b28;
+    min-width: 20px;
+    /* Mantiene los números alineados */
+}
+
+.paso-row input {
+    margin-bottom: 0;
+    /* Anula el margen general para que quede centrado con el número */
+}
+
+/* Botones secundarios (+ Añadir) */
+button[type="button"] {
+    background-color: transparent;
+    color: #b55b28;
+    border: 2px dashed #b55b28;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    width: 100%;
+    transition: background-color 0.2s;
+}
+
+button[type="button"]:hover {
+    background-color: #fef3dc;
+}
+
+.btn-quitar {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    background-color: #f2dede;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: none;
+    border-radius: 8px;
+    color: #a94442;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.btn-quitar:hover {
+    background-color: #e2c0c0;
+    transform: scale(1.05);
+    /* Un ligero "brinquito" al pasar el mouse */
+}
+
+/* ==== Botón de publicar (Principal) ==== */
+.btn-submit {
+    width: 100%;
+    background-color: #b55b28;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 30px;
+    transition: background-color 0.2s;
+}
+
+.btn-submit:hover:not(:disabled) {
+    background-color: #8d451e;
+}
+
+/* Estilo visual para cuando el formulario es inválido y el botón está bloqueado */
+.btn-submit:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
