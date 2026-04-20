@@ -1,6 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { AuthService } from '../../services/auth-service';
 import { RecipeService } from '../../services/recipe-service';
+import { CommentService } from '../../services/comment-service';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -13,12 +14,14 @@ import { DatePipe } from '@angular/common';
 export class AdminComponent {
   private authService = inject(AuthService);
   private recipeService = inject(RecipeService);
+  private commentService = inject(CommentService);
 
   usuarios = signal<any[]>([]);
   recetas = signal<any[]>([]);
+  comentarios = signal<any[]>([]);
 
   // Pestañas del panel
-  vistaActual = signal<'usuarios' | 'recetas'>('usuarios');
+  vistaActual = signal<'usuarios' | 'recetas' | 'comentarios'>('usuarios');
 
   ngOnInit() {
     this.cargarDatos();
@@ -36,6 +39,16 @@ export class AdminComponent {
       next: (datos) => this.recetas.set(datos),
       error: (err) => console.error('Error cargando recetas para admin', err)
     });
+
+    // 3. Traer TODOS los comentarios (Admin)
+    this.commentService.getTodosLosComentariosAdmin().subscribe({
+      next: (datos) => this.comentarios.set(datos),
+      error: (err) => console.error('Error cargando comentarios para admin', err)
+    });
+  }
+
+  cambiarVista(vista: 'usuarios' | 'recetas' | 'comentarios') {
+    this.vistaActual.set(vista);
   }
 
   cambiarEstadoReceta(id: string, nuevoEstado: string) {
@@ -62,7 +75,15 @@ export class AdminComponent {
     }
   }
 
-  cambiarVista(vista: 'usuarios' | 'recetas') {
-    this.vistaActual.set(vista);
+  borrarComentario(id: string) {
+    if (confirm('¿Estás seguro de que deseas eliminar este comentario?')) {
+      this.commentService.eliminarComentarioAdmin(id).subscribe({
+        next: () => {
+          // Quitamos el comentario de la tabla actualizando el Signal
+          this.comentarios.set(this.comentarios().filter(c => c._id !== id));
+        },
+        error: (err) => alert('Error al eliminar el comentario')
+      });
+    }
   }
 }

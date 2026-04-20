@@ -22,4 +22,18 @@ export class CommentService {
     // Enviamos el cuerpo que espera el backend
     return this.http.post(this.apiUrl, { recetaId, texto }, { headers });
   }
+
+  // Obtener todos los comentarios (Solo Admin)
+  getTodosLosComentariosAdmin(): Observable<any[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<any[]>(`${this.apiUrl}/admin/todos`, { headers });
+  }
+
+  // Eliminar un comentario (Solo Admin)
+  eliminarComentarioAdmin(id: string): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete(`${this.apiUrl}/admin/${id}`, { headers });
+  }
 }

@@ -11,6 +11,9 @@
     <button [class.activo]="vistaActual() === 'recetas'" (click)="cambiarVista('recetas')">
       🌮 Recetas ({{ recetas().length }})
     </button>
+    <button [class.activo]="vistaActual() === 'comentarios'" (click)="cambiarVista('comentarios')">
+      🗣️ Comentarios ({{ comentarios().length }})
+    </button>
   </div>
 
   <main class="admin-content">
@@ -79,6 +82,42 @@
               @if (receta.estado !== 'rechazada') {
               <button class="btn-rechazar" (click)="cambiarEstadoReceta(receta._id, 'rechazada')">❌ Rechazar</button>
               }
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    }
+
+    @if (vistaActual() === 'comentarios') {
+    <div class="tabla-responsive">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Autor</th>
+            <th>En la receta</th>
+            <th>Comentario</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (comentario of comentarios(); track comentario._id) {
+          <tr>
+            <td>
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <img [src]="comentario.autor?.foto_perfil || '/img/default_user.png'" class="avatar-mini">
+                <strong>{{ comentario.autor?.nombre || 'Usuario Borrado' }}</strong>
+              </div>
+            </td>
+            <td>{{ comentario.receta?.titulo || 'Receta Borrada' }}</td>
+            <td style="max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+              {{ comentario.texto }}
+            </td>
+            <td>{{ comentario.createdAt | date:'shortDate' }}</td>
+            <td>
+              <button class="btn-peligro" (click)="borrarComentario(comentario._id)">🗑️ Eliminar</button>
             </td>
           </tr>
           }
